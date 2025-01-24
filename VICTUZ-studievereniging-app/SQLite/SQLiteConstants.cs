@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 using SQLite;
 
-namespace SnapTime.SQLite
+namespace VICTUZ_studievereniging_app.SQLite
 {
     public static class SQLiteConstants
     {
-        public const string DatabaseFilename = "SnapTimeDB";
+        public const string DatabaseFilename = "VICTUZDataBase";
 
         public const SQLiteOpenFlags Flags =
             // open the database in read/write mode

@@ -1,4 +1,4 @@
-﻿using SnapTime.Classes;
+﻿using VICTUZ_studievereniging_app.Classes;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnapTime.SQLite
+namespace VICTUZ_studievereniging_app.SQLite
 {
     public class SQLiteDatabase
     {
