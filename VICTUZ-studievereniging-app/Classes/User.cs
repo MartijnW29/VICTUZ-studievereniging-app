@@ -22,13 +22,13 @@ namespace VICTUZ_studievereniging_app.Classes
 
         public bool IsAdmin { get; set; } = false;
 
-        //public List<Sugestion> SugestedEvents { get; set; }
+        public List<Suggestion>? SugestedEvents { get; set; }
 
-        //public List<Events> JoinedEvents { get; set; }
+        public List<Event>? JoinedEvents { get; set; }
 
-        //public List<Events> HostedEvents { get; set; }
+        public List<Event>? HostedEvents { get; set; }
 
-        //public List<Events> LikedEvents { get; set; }
+        public List<Event>? LikedEvents { get; set; }
 
 
 

@@ -15,7 +15,7 @@ namespace VICTUZ_studievereniging_app.Services
         public FirebaseHelper()
         {
             // Vervang door jouw Firebase Database URL
-            _firebaseClient = new FirebaseClient("https://snaptime-23f71-default-rtdb.europe-west1.firebasedatabase.app/");
+            _firebaseClient = new FirebaseClient("https://victuz-64299-default-rtdb.europe-west1.firebasedatabase.app/");
         }
         
 
