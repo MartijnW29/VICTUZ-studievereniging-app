@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VICTUZ_studievereniging_app.MainBar"
+             xmlns:local="clr-namespace:VICTUZ_studievereniging_app"
+            
+            
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             android:TabbedPage.ToolbarPlacement="Bottom">
+                      <!--HEEL BELANGRIJK-->
+
+
+    <!--  Pages can be added as references or inline  -->
+
+    <local:ProfilePage Title="Mijn profiel" IconImageSource="person.png" />
+
+    <local:MyEventsPage Title="Mijn evenementen" IconImageSource="bookmark.png" />
+
+    <local:HomePage Title="Home" IconImageSource="home.png" />
+
+    <local:PlanningPage Title="Planning" IconImageSource="calendar.png" />
+
+    <local:SuggestionsPage Title="Suggesties" IconImageSource="suggestions.png" />
+
+
+</TabbedPage>
