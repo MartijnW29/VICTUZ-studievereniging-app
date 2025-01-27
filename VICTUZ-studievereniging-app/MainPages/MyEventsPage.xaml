@@ -1,17 +1,20 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VICTUZ_studievereniging_app.MainPages.MyEventsPage"
-             Title="Mijn Evenementen">
+             Title="MyEventsPage">
+    <VerticalStackLayout>
+        <!-- De knop om het event aanmaak-formulier weer te geven -->
+        <Button Text="Maak Event Aan" Clicked="OnCreateEventFormClicked"/>
 
-    <Grid RowDefinitions="*,Auto">
-        <!-- Andere content kan hier komen -->
-        <VerticalStackLayout Grid.Row="0">
-            <!-- Andere elementen die je bovenaan wil -->
-            <Label Text="Welkom bij Mijn Evenementen" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-        </VerticalStackLayout>
+        <!-- Event aanmaakformulieren, in eerste instantie verborgen -->
+        <StackLayout x:Name="eventForm" IsVisible="False">
+            <Entry x:Name="eventNameEntry" Placeholder="Evenementnaam" />
+            <Editor x:Name="eventDescriptionEntry" Placeholder="Beschrijving" />
+            <DatePicker x:Name="eventStartDate" />
+            <TimePicker x:Name="eventStartTime" />
+            <TimePicker x:Name="eventEndTime" />
 
-        <!-- De knop komt in de tweede rij, onderaan -->
-        <Button Text="Maak Event Aan" Clicked="OnCreateEventClicked" Grid.Row="1" />
-    </Grid>
+            <Button Text="Evenement Aanmaken" Clicked="OnCreateEventClicked"/>
+        </StackLayout>
+    </VerticalStackLayout>
 </ContentPage>

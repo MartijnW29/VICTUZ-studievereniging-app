@@ -1,75 +1,77 @@
-using VICTUZ_studievereniging_app.Classes;
-using VICTUZ_studievereniging_app;
 using VICTUZ_studievereniging_app.Services;
+using VICTUZ_studievereniging_app.Classes;
 
 namespace VICTUZ_studievereniging_app.MainPages
 {
+
     public partial class MyEventsPage : ContentPage
     {
-        private readonly FirebaseHelper _firebaseHelper;
+        private FirebaseHelper firebaseHelper;
 
         public MyEventsPage()
         {
             InitializeComponent();
-            _firebaseHelper = new FirebaseHelper(); // FirebaseHelper instantie
+            firebaseHelper = new FirebaseHelper();
+        }
+
+        // Methode om het formulier zichtbaar te maken
+        private void OnCreateEventFormClicked(object sender, EventArgs e)
+        {
+            // Toggle de zichtbaarheid van het formulier
+            eventForm.IsVisible = !eventForm.IsVisible;
         }
 
         // Wanneer de gebruiker op de knop "Maak Event Aan" klikt
         private async void OnCreateEventClicked(object sender, EventArgs e)
         {
-            // Vraag naar de naam en beschrijving van het evenement
-            string eventName = await DisplayPromptAsync("Evenementnaam", "Voer de naam van het evenement in");
-            string eventDescription = await DisplayPromptAsync("Beschrijving", "Voer een beschrijving in");
+            // Verkrijg de waarden van de velden
+            string eventName = eventNameEntry.Text;
+            string eventDescription = eventDescriptionEntry.Text;
+            DateTime eventDate = eventStartDate.Date;
+            TimeSpan startTime = eventStartTime.Time;
+            TimeSpan endTime = eventEndTime.Time;
 
-            // Vraag de start- en einddatum van het evenement
-            string startDateTimeStr = await DisplayPromptAsync("Startdatum", "Voer de startdatum van het evenement in (bijv. 2025-01-30 14:00)");
-            string endDateTimeStr = await DisplayPromptAsync("Einddatum", "Voer de einddatum van het evenement in (bijv. 2025-01-30 16:00)");
+            // Combineer de datum en tijd
+            DateTime startDateTime = eventDate.Add(startTime);
+            DateTime endDateTime = eventDate.Add(endTime);
 
-            // Vraag extra velden
-            string joinLimitStr = await DisplayPromptAsync("Deelnemerslimiet", "Voer de deelnemerslimiet in");
-            string roomId = await DisplayPromptAsync("Room ID", "Voer de zaal-ID in");
-
-            // Controleer of alle velden zijn ingevuld
-            if (string.IsNullOrEmpty(eventName) || string.IsNullOrEmpty(eventDescription) || string.IsNullOrEmpty(startDateTimeStr) || string.IsNullOrEmpty(endDateTimeStr) || string.IsNullOrEmpty(joinLimitStr) || string.IsNullOrEmpty(roomId))
+            if (string.IsNullOrEmpty(eventName) || string.IsNullOrEmpty(eventDescription))
             {
                 await DisplayAlert("Fout", "Vul alle velden in", "OK");
-                return;
             }
-
-            // Probeer de datums om te zetten
-            if (!DateTime.TryParse(startDateTimeStr, out DateTime startDateTime) || !DateTime.TryParse(endDateTimeStr, out DateTime endDateTime))
+            else
             {
-                await DisplayAlert("Fout", "De opgegeven datums zijn ongeldig", "OK");
-                return;
+                // Maak het evenement object
+                Event newEvent = new Event
+                {
+                    Name = eventName,
+                    Description = eventDescription,
+                    StartDateTime = startDateTime,
+                    EndDateTime = endDateTime
+                };
+
+                // Sla het evenement op in de database
+                await firebaseHelper.AddItem(newEvent, "events");
+
+                // Toon een succesbericht
+                await DisplayAlert("Succes", $"Evenement '{eventName}' is aangemaakt!", "OK");
+
+                // Reset de velden
+                ResetFields();
+
+                // Maak het formulier weer verborgen na het aanmaken van het evenement
+                eventForm.IsVisible = false;
             }
+        }
 
-            // Probeer de deelnemerslimiet om te zetten naar een integer
-            if (!int.TryParse(joinLimitStr, out int joinLimit))
-            {
-                await DisplayAlert("Fout", "De deelnemerslimiet moet een getal zijn", "OK");
-                return;
-            }
-
-            // Maak het evenement object
-            var newEvent = new Event
-            {
-                Name = eventName,
-                Description = eventDescription,
-                StartDateTime = startDateTime,
-                EndDateTime = endDateTime,
-                JoinLimit = joinLimit,
-                RoomId = roomId,
-                Registered = new List<User>(), // Voeg een lege lijst toe voor geregistreerde gebruikers
-                Attended = new List<User>(),   // Voeg een lege lijst toe voor aanwezige gebruikers
-                Hosts = new List<User>(),      // Voeg een lege lijst toe voor hosts
-                Categories = new List<Category>() // Voeg een lege lijst toe voor categorieën
-            };
-
-            // Voeg het evenement toe aan Firebase
-            await _firebaseHelper.AddEvent(newEvent);
-
-            // Toon een succesbericht
-            await DisplayAlert("Succes", $"Evenement '{eventName}' is succesvol aangemaakt!", "OK");
+        private void ResetFields()
+        {
+            // Zet alle velden terug naar hun oorspronkelijke waarde (leeg of standaard)
+            eventNameEntry.Text = string.Empty;
+            eventDescriptionEntry.Text = string.Empty;
+            eventStartDate.Date = DateTime.Now; // Zet naar de huidige datum
+            eventStartTime.Time = TimeSpan.Zero; // Zet naar middernacht
+            eventEndTime.Time = TimeSpan.Zero; // Zet naar middernacht
         }
     }
 }
