@@ -16,9 +16,9 @@ namespace VICTUZ_studievereniging_app.Classes
 
         public Image? Picture { get; set; }
 
-        public List<Category>? categories { get; set; }
+        public List<Category>? Categories { get; set; }
 
-        public int joinLimit { get; set; }
+        public int JoinLimit { get; set; }
 
         public Room? Room { get; set; }
         public string? RoomId { get; set; }

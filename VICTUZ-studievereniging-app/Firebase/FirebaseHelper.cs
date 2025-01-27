@@ -17,7 +17,26 @@ namespace VICTUZ_studievereniging_app.Services
             // Vervang door jouw Firebase Database URL
             _firebaseClient = new FirebaseClient("https://victuz-64299-default-rtdb.europe-west1.firebasedatabase.app/");
         }
-        
+
+        public async Task AddEvent(Event newEvent)
+        {
+            // Voeg het evenement toe aan de Firebase-database
+            var result = await _firebaseClient
+                .Child("events") // Dit is de "node" waar evenementen worden opgeslagen
+                .PostAsync(newEvent);
+
+            // Krijg de unieke key (ID) van het evenement
+            string eventId = result.Key;
+            newEvent.Id = eventId; // Wijs de gegenereerde sleutel toe aan het event-object
+
+            // Werk het evenement bij met de nieuwe ID
+            await _firebaseClient
+                .Child("events")
+                .Child(eventId) // Gebruik de gegenereerde sleutel hier
+                .PutAsync(newEvent);
+        }
+
+
 
         public async Task UpdateSpecificUser(string userId, User updatedUser)
         {
