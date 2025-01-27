@@ -13,8 +13,34 @@
             <DatePicker x:Name="eventStartDate" />
             <TimePicker x:Name="eventStartTime" />
             <TimePicker x:Name="eventEndTime" />
-
             <Button Text="Evenement Aanmaken" Clicked="OnCreateEventClicked"/>
         </StackLayout>
+
+        <!-- ListView om de evenementen weer te geven -->
+        <ListView x:Name="eventsListView" 
+                  HasUnevenRows="True"
+                  Margin="10,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame BorderColor="Gray" BackgroundColor="LightGray" CornerRadius="10" Padding="15" Margin="5">
+                            <StackLayout>
+                                <Label Text="{Binding Name}" 
+                                       FontAttributes="Bold" 
+                                       FontSize="20"
+                                       LineBreakMode="WordWrap" 
+                                       MaxLines="1"/>
+                                <Label Text="{Binding StartDateTime, StringFormat='{0:dd MMM yyyy HH:mm}'}" 
+                                       FontSize="16"
+                                       LineBreakMode="WordWrap" />
+                                <Label Text="{Binding Registered.Count, StringFormat='Aantal deelnemers: {0}', FallbackValue='Aantal deelnemers: 0'}" 
+                                       FontSize="16"
+                                       LineBreakMode="WordWrap"/>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </VerticalStackLayout>
 </ContentPage>

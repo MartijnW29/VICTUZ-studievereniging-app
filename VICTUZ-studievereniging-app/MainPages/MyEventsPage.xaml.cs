@@ -1,9 +1,9 @@
 using VICTUZ_studievereniging_app.Services;
 using VICTUZ_studievereniging_app.Classes;
+using System.Linq;
 
 namespace VICTUZ_studievereniging_app.MainPages
 {
-
     public partial class MyEventsPage : ContentPage
     {
         private FirebaseHelper firebaseHelper;
@@ -12,7 +12,35 @@ namespace VICTUZ_studievereniging_app.MainPages
         {
             InitializeComponent();
             firebaseHelper = new FirebaseHelper();
+            LoadHostedEvents(); // Laad de evenementen bij het starten van de pagina
         }
+
+        
+        private async void LoadHostedEvents()
+        {
+            try
+            {
+                // Haal de evenementen op uit Firebase
+                var allEvents = await firebaseHelper.GetItems<Event>("events");
+
+                // laat aleen toekomstige evenementen zien
+                var hostedEvents = allEvents
+                    .Where(e => e.Hosts != null && e.Hosts.Any(h => h.Id == App.CurrentUser?.Id)
+                                && e.StartDateTime > DateTime.Now) 
+                    .ToList();
+
+
+                // Zet de evenementen als de bron van de ListView
+                eventsListView.ItemsSource = hostedEvents;
+
+            }
+            catch (Exception ex)
+            {
+                // Foutmelding voor als er iets mis gaat bij het ophalen van de evenementen
+                System.Diagnostics.Debug.WriteLine($"Fout bij het laden van evenementen: {ex.Message}");
+            }
+        }
+
 
         // Methode om het formulier zichtbaar te maken
         private void OnCreateEventFormClicked(object sender, EventArgs e)
@@ -48,20 +76,11 @@ namespace VICTUZ_studievereniging_app.MainPages
                     Description = eventDescription,
                     StartDateTime = startDateTime,
                     EndDateTime = endDateTime,
-                    Hosts = new List<User> { App.CurrentUser } // Voeg de huidige gebruiker toe als host
+                    Hosts = new List<User> { App.CurrentUser } // Voeg de host (de huidige gebruiker) toe aan het evenement
                 };
 
                 // Sla het evenement op in de database
                 await firebaseHelper.AddItem(newEvent, "events");
-
-                // Voeg het evenement ook toe aan de lijst van de gehoste evenementen van de huidige gebruiker
-                if (App.CurrentUser.HostedEvents == null)
-                {
-                    App.CurrentUser.HostedEvents = new List<Event>();
-                }
-
-                App.CurrentUser.HostedEvents.Add(newEvent);
-                await firebaseHelper.UpdateItem("users", App.CurrentUser.Id, App.CurrentUser);
 
                 // Toon een succesbericht
                 await DisplayAlert("Succes", $"Evenement '{eventName}' is aangemaakt!", "OK");
@@ -71,9 +90,11 @@ namespace VICTUZ_studievereniging_app.MainPages
 
                 // Maak het formulier weer verborgen na het aanmaken van het evenement
                 eventForm.IsVisible = false;
+
+                // Laad de evenementen opnieuw
+                LoadHostedEvents();
             }
         }
-
 
         private void ResetFields()
         {
