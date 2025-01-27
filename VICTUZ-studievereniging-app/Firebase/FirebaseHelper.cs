@@ -68,7 +68,7 @@ namespace VICTUZ_studievereniging_app.Services
         }
 
 
-        public async Task<string> CheckUserExistence(string email, string Username, string password)
+        public async Task<string> CheckUserExistence(string email, string password)
         {
             var users = await _firebaseClient
                 .Child("users")
