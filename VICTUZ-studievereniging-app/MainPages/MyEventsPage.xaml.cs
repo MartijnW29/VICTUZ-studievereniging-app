@@ -47,11 +47,21 @@ namespace VICTUZ_studievereniging_app.MainPages
                     Name = eventName,
                     Description = eventDescription,
                     StartDateTime = startDateTime,
-                    EndDateTime = endDateTime
+                    EndDateTime = endDateTime,
+                    Hosts = new List<User> { App.CurrentUser } // Voeg de huidige gebruiker toe als host
                 };
 
                 // Sla het evenement op in de database
                 await firebaseHelper.AddItem(newEvent, "events");
+
+                // Voeg het evenement ook toe aan de lijst van de gehoste evenementen van de huidige gebruiker
+                if (App.CurrentUser.HostedEvents == null)
+                {
+                    App.CurrentUser.HostedEvents = new List<Event>();
+                }
+
+                App.CurrentUser.HostedEvents.Add(newEvent);
+                await firebaseHelper.UpdateItem("users", App.CurrentUser.Id, App.CurrentUser);
 
                 // Toon een succesbericht
                 await DisplayAlert("Succes", $"Evenement '{eventName}' is aangemaakt!", "OK");
@@ -63,6 +73,7 @@ namespace VICTUZ_studievereniging_app.MainPages
                 eventForm.IsVisible = false;
             }
         }
+
 
         private void ResetFields()
         {
