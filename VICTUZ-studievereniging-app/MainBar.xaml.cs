@@ -1,11 +1,19 @@
-namespace SnapTime;
+namespace VICTUZ_studievereniging_app;
 
 public partial class MainBar : TabbedPage
 {
-    public MainBar(int page = 1)
+    public MainBar(int page = 2)
     {
         InitializeComponent();
 
-        CurrentPage = Children[page]; // Index 1 verwijst naar het tweede tabblad ("Home")
+        // Check of de gewenste index bestaat
+        if (page >= 0 && page < Children.Count)
+        {
+            CurrentPage = Children[page];
+        }
+        else
+        {
+            CurrentPage = Children[2]; // Val terug op het eerste tabblad
+        }
     }
 }

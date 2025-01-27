@@ -2,13 +2,11 @@
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VICTUZ_studievereniging_app.MainBar"
-             xmlns:local="clr-namespace:VICTUZ_studievereniging_app"
-            
-            
+             xmlns:local="clr-namespace:VICTUZ_studievereniging_app.MainPages"
+
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
              android:TabbedPage.ToolbarPlacement="Bottom">
                       <!--HEEL BELANGRIJK-->
-
 
     <!--  Pages can be added as references or inline  -->
 
@@ -21,6 +19,5 @@
     <local:PlanningPage Title="Planning" IconImageSource="calendar.png" />
 
     <local:SuggestionsPage Title="Suggesties" IconImageSource="suggestions.png" />
-
 
 </TabbedPage>
