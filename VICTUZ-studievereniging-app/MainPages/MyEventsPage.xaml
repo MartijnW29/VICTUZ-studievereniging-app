@@ -4,7 +4,14 @@
              x:Class="VICTUZ_studievereniging_app.MainPages.MyEventsPage"
              Title="Mijn Evenementen">
 
-    <!-- Voeg hier je andere content toe -->
-    <Button Text="Maak Event Aan" Clicked="OnCreateEventClicked" />
+    <Grid RowDefinitions="*,Auto">
+        <!-- Andere content kan hier komen -->
+        <VerticalStackLayout Grid.Row="0">
+            <!-- Andere elementen die je bovenaan wil -->
+            <Label Text="Welkom bij Mijn Evenementen" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+        </VerticalStackLayout>
 
+        <!-- De knop komt in de tweede rij, onderaan -->
+        <Button Text="Maak Event Aan" Clicked="OnCreateEventClicked" Grid.Row="1" />
+    </Grid>
 </ContentPage>
