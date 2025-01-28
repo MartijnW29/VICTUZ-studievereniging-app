@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:VICTUZ_studievereniging_app.MainPages"
              x:Class="VICTUZ_studievereniging_app.MainPages.MyEventsPage"
-             Title="MyEventsPage">
-    <VerticalStackLayout>
+             Title="Mijn Evenementen">
+
+    <VerticalStackLayout Padding="10">
+
         <!-- De knop om het event aanmaak-formulier weer te geven -->
         <Button Text="Maak Event Aan" Clicked="OnCreateEventFormClicked"/>
 
@@ -27,11 +31,11 @@
             <Button Text="Evenement Aanmaken" Clicked="OnCreateEventClicked"/>
         </StackLayout>
 
-
         <!-- ListView om de evenementen weer te geven -->
         <ListView x:Name="eventsListView" 
                   HasUnevenRows="True"
-                  Margin="10,0">
+                  Margin="10,0"
+                  ItemTapped="OnEventTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -54,5 +58,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
     </VerticalStackLayout>
 </ContentPage>

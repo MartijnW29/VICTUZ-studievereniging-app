@@ -15,7 +15,6 @@ namespace VICTUZ_studievereniging_app.MainPages
             LoadHostedEvents(); // Laad de evenementen bij het starten van de pagina
         }
 
-        
         private async void LoadHostedEvents()
         {
             try
@@ -23,12 +22,11 @@ namespace VICTUZ_studievereniging_app.MainPages
                 // Haal de evenementen op uit Firebase
                 var allEvents = await firebaseHelper.GetItems<Event>("events");
 
-                // laat aleen toekomstige evenementen zien
+                // Laat alleen toekomstige evenementen zien
                 var hostedEvents = allEvents
                     .Where(e => e.Hosts != null && e.Hosts.Any(h => h.Id == App.CurrentUser?.Id)
-                                && e.StartDateTime > DateTime.Now) 
+                                && e.StartDateTime > DateTime.Now)
                     .ToList();
-
 
                 // Zet de evenementen als de bron van de ListView
                 eventsListView.ItemsSource = hostedEvents;
@@ -41,6 +39,17 @@ namespace VICTUZ_studievereniging_app.MainPages
             }
         }
 
+        // Methode om naar de EventDetailsPage te navigeren
+        private async void OnEventTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (e.Item != null)
+            {
+                Event selectedEvent = e.Item as Event;
+
+                // Navigeer naar EventDetailsPage en geef het geselecteerde evenement door
+                await Navigation.PushAsync(new EventDetailsPage(selectedEvent));
+            }
+        }
 
         // Methode om het formulier zichtbaar te maken
         private void OnCreateEventFormClicked(object sender, EventArgs e)

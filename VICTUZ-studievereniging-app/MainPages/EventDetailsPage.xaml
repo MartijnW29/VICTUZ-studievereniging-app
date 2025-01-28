@@ -1,0 +1,35 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VICTUZ_studievereniging_app.MainPages.EventDetailsPage"
+             Title="Evenement Details">
+    <ScrollView>
+        <StackLayout Padding="10">
+            <!-- Evenement Naam -->
+            <Label x:Name="eventNameLabel" FontAttributes="Bold" FontSize="24" />
+
+            <!-- Evenement Naam (Bewerkbaar) -->
+            <Entry x:Name="eventNameEntry" Text="{Binding currentEvent.Name}" IsVisible="False" />
+
+            <!-- Evenement Beschrijving -->
+            <Label x:Name="eventDescriptionLabel" FontSize="16" />
+
+            <!-- Evenement Beschrijving (Bewerkbaar) -->
+            <Editor x:Name="eventDescriptionEditor" Text="{Binding currentEvent.Description}" IsVisible="False" />
+
+            <!-- Evenement Datum -->
+            <Label x:Name="eventDateLabel" FontSize="16" />
+
+            <!-- Evenement Tijd -->
+            <Label x:Name="eventTimeLabel" FontSize="16" />
+
+            <!-- Hosts -->
+            <Label x:Name="eventHostsLabel" FontSize="16" />
+
+            <!-- Bewerken Knop -->
+            <Button x:Name="editEventButton" Text="Bewerk Evenement" Clicked="OnEditEventClicked" IsVisible="True" />
+
+            <!-- Opslaan Knop (zichtbaar maken als de gebruiker in de bewerkmodus is) -->
+            <Button x:Name="saveEventButton" Text="Opslaan" Clicked="OnSaveEventClicked" IsVisible="False" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

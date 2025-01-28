@@ -18,11 +18,14 @@ namespace VICTUZ_studievereniging_app
 
             if (CurrentUser == null) // dit werkt nog niet is voor later
             {
-                MainPage = new LoginPage();
+                //MainPage = new LoginPage();
+                MainPage = new NavigationPage(new LoginPage());
+
             }
             else
             {
-                MainPage = new MainBar();
+                //MainPage = new MainBar();
+                MainPage = new NavigationPage(new MainBar());
             }
         }
 
