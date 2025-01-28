@@ -8,13 +8,25 @@
 
         <!-- Event aanmaakformulieren, in eerste instantie verborgen -->
         <StackLayout x:Name="eventForm" IsVisible="False">
-            <Entry x:Name="eventNameEntry" Placeholder="Evenementnaam" />
-            <Editor x:Name="eventDescriptionEntry" Placeholder="Beschrijving" />
+
+            <Label Text="Evenementnaam" FontAttributes="Bold" />
+            <Entry x:Name="eventNameEntry" Placeholder="Naam" />
+
+            <Label Text="Beschrijving" FontAttributes="Bold" />
+            <Editor x:Name="eventDescriptionEntry" Placeholder="Tekst" />
+
+            <Label Text="Startdatum" FontAttributes="Bold" />
             <DatePicker x:Name="eventStartDate" />
+
+            <Label Text="Begintijd" FontAttributes="Bold" />
             <TimePicker x:Name="eventStartTime" />
+
+            <Label Text="Eindtijd" FontAttributes="Bold" />
             <TimePicker x:Name="eventEndTime" />
+
             <Button Text="Evenement Aanmaken" Clicked="OnCreateEventClicked"/>
         </StackLayout>
+
 
         <!-- ListView om de evenementen weer te geven -->
         <ListView x:Name="eventsListView" 

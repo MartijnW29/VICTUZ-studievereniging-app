@@ -32,5 +32,10 @@ namespace VICTUZ_studievereniging_app.Classes
         public List<User>? Attended { get; set; }
 
         public List<User>? Hosts { get; set; }
+
+
+
+
+        public bool IsUserNotHost { get; set; }
     }
 }

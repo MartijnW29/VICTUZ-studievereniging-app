@@ -12,7 +12,7 @@
 
     <local:ProfilePage Title="Mijn profiel" IconImageSource="person.png" />
 
-    <local:MyEventsPage Title="Mijn evenementen" IconImageSource="bookmark.png" />
+    <local:MyEventsPage Title="Mijn events" IconImageSource="bookmark.png" />
 
     <local:HomePage Title="Home" IconImageSource="home.png" />
 
