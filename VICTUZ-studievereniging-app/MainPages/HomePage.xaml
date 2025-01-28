@@ -3,10 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VICTUZ_studievereniging_app.MainPages.HomePage"
              Title="HomePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <!-- Titel -->
+            <Label 
+                Text="Eerstvolgende Evenement"
+                FontSize="24"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <!-- Frame voor evenement -->
+            <Frame BackgroundColor="LightGray"
+                   BorderColor="Gray"
+                   CornerRadius="15"
+                   Padding="15"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <!-- Evenement titel gecentreerd -->
+                    <Label x:Name="eventTitleLabel"
+                           Text="Geen aankomende evenementen"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="Black"
+                           HorizontalOptions="Center"
+                           LineBreakMode="WordWrap" />
+
+                    <!-- Evenement datum en tijd -->
+                    <Label x:Name="eventDateLabel"
+                           Text=""
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           TextColor="Gray" />
+
+                    <!-- Evenement beschrijving -->
+                    <Label x:Name="eventDescriptionLabel"
+                           Text=""
+                           FontSize="14"
+                           HorizontalOptions="Center"
+                           TextColor="Black"
+                           LineBreakMode="WordWrap" />
+
+                    <!-- Inschrijfknop -->
+                    <Button x:Name="registerButton"
+                            Text="Schrijf je in"
+                            FontSize="16"
+                            BackgroundColor="LightBlue"
+                            TextColor="White"
+                            CornerRadius="10"
+                            Padding="10"
+                            Clicked="OnRegisterButtonClicked"
+                            IsVisible="False" />
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
