@@ -29,7 +29,7 @@ namespace VICTUZ_studievereniging_app
             }
         }
 
-        private async void SetCurrentUserAsync()
+        private async Task SetCurrentUserAsync()
         {
             LoggedInUser = await localDatabase.GetPreviouslyLoggedInUserAsync();
 

@@ -23,7 +23,8 @@ namespace VICTUZ_studievereniging_app.MainPages
             if (confirm)
             {
                 // Verwijder de huidige gebruiker uit de lokale database
-                localdatabase.DeleteUserAsync(App.CurrentUser);
+                //await localdatabase.DeleteLoggedInUserAsync();
+                await localdatabase.DeleteUserAsync(App.CurrentUser.Id);
 
                 // Maak de CurrentUser in de app leeg
                 App.CurrentUser = null;

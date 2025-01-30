@@ -1,4 +1,5 @@
 using VICTUZ_studievereniging_app;
+using VICTUZ_studievereniging_app.Classes;
 using VICTUZ_studievereniging_app.Services;
 using VICTUZ_studievereniging_app.SQLite; // nodig voor telefoon database
 
@@ -10,6 +11,7 @@ namespace VICTUZ_studievereniging_app
     {
         private readonly FirebaseHelper _firebaseHelper;
         SQLiteDatabase localdatabase;
+        
 
         public LoginPage()
         {
@@ -47,11 +49,18 @@ namespace VICTUZ_studievereniging_app
                         // Sla de ingelogde gebruiker op in de applicatie
                         App.CurrentUser = user;
 
-                        // Vul de velden in op de UI
-                        FirstnameEntry.Text = user.Firstname;
-                        LastnameEntry.Text = user.Lastname;
+                        
+                        var loggedInUser = new LoggedInUser
+                        {
+                            Id = user.Id,
+                            Email = user.Email,
+                            Password = user.Password,
+                            Firstname = user.Firstname,
+                            Lastname = user.Lastname
+                        };
+                        await localdatabase.SaveUserAsync(loggedInUser); // Sla de ingelogde gebruiker op in de lokale database
+                        
                     }
-
                     Application.Current.MainPage = new MainBar();
                 }
                 else
@@ -104,6 +113,7 @@ namespace VICTUZ_studievereniging_app
                 };
 
                 // Voeg de nieuwe gebruiker toe aan de database
+                
                 await _firebaseHelper.MakeAccount(newUser);
 
                 // Bevestiging geven en terug naar de loginpagina
