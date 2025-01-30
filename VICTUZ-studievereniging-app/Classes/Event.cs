@@ -16,7 +16,7 @@ namespace VICTUZ_studievereniging_app.Classes
 
         public Image? Picture { get; set; }
 
-        public List<Category>? Categories { get; set; }
+        public List<Category>? Categories { get; set; } = new List<Category>();
 
         public int JoinLimit { get; set; }
 
@@ -27,11 +27,11 @@ namespace VICTUZ_studievereniging_app.Classes
 
         public DateTime EndDateTime { get; set; }
 
-        public List<User>? Registered { get; set; }
+        public List<User>? Registered { get; set; } = new List<User>();
 
-        public List<User>? Attended { get; set; }
+        public List<User>? Attended { get; set; } = new List<User>();
 
-        public List<User>? Hosts { get; set; }
+        public List<User>? Hosts { get; set; } = new List<User>();
 
 
 

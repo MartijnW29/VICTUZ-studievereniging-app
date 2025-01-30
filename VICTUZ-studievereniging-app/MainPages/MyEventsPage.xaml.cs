@@ -25,7 +25,8 @@ namespace VICTUZ_studievereniging_app.MainPages
                 // Laat alleen toekomstige evenementen zien
                 var hostedEvents = allEvents
                     .Where(e => e.Hosts != null && e.Hosts.Any(h => h.Id == App.CurrentUser?.Id)
-                                && e.StartDateTime > DateTime.Now)
+                                && e.StartDateTime > DateTime.Now) // comment deze om oude events te zien
+                                
                     .ToList();
 
                 // Zet de evenementen als de bron van de ListView
@@ -89,7 +90,7 @@ namespace VICTUZ_studievereniging_app.MainPages
                 };
 
                 // Sla het evenement op in de database
-                await firebaseHelper.AddItem(newEvent, "events");
+                await firebaseHelper.AddEvent(newEvent);
 
                 // Toon een succesbericht
                 await DisplayAlert("Succes", $"Evenement '{eventName}' is aangemaakt!", "OK");
@@ -101,7 +102,7 @@ namespace VICTUZ_studievereniging_app.MainPages
                 eventForm.IsVisible = false;
 
                 // Laad de evenementen opnieuw
-                LoadHostedEvents();
+                Application.Current.MainPage = new MainBar(1);
             }
         }
 

@@ -36,6 +36,23 @@ namespace VICTUZ_studievereniging_app.Services
                 .PutAsync(newEvent);
         }
 
+        public async Task MakeAccount(User user)
+        {
+            // Voeg de gebruiker toe aan de Firebase-database
+            var result = await _firebaseClient
+                .Child("users")
+                .PostAsync(user);
+
+            // Haal de unieke Firebase-sleutel op en sla die op als Id
+            string userId = result.Key;
+            user.Id = userId; // Wijs de gegenereerde sleutel toe aan het user-object
+
+            // Update de gebruiker in Firebase met de nieuwe Id
+            await _firebaseClient
+                .Child("users")
+                .Child(userId) // Gebruik de gegenereerde sleutel hier
+                .PutAsync(user);
+        }
 
 
         public async Task UpdateSpecificUser(string userId, User updatedUser)
@@ -86,23 +103,7 @@ namespace VICTUZ_studievereniging_app.Services
 
 
         // Voeg een nieuwe gebruiker toe aan de database
-        public async Task MakeAccount(User user)
-        {
-            // Voeg de gebruiker toe aan de Firebase-database
-            var result = await _firebaseClient
-                .Child("users")
-                .PostAsync(user);
-
-            // Haal de unieke Firebase-sleutel op en sla die op als Id
-            string userId = result.Key;
-            user.Id = userId; // Wijs de gegenereerde sleutel toe aan het user-object
-
-            // Update de gebruiker in Firebase met de nieuwe Id
-            await _firebaseClient
-                .Child("users")
-                .Child(userId) // Gebruik de gegenereerde sleutel hier
-                .PutAsync(user);
-        }
+        
 
 
 

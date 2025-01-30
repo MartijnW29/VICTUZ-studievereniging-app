@@ -25,7 +25,15 @@
             <!-- Hosts -->
             <Label x:Name="eventHostsLabel" FontSize="16" />
 
-            <!-- Bewerken Knop -->
+            <!-- Aantal Geregistreerde Deelnemers -->
+            <Label x:Name="registeredCountLabel" FontSize="16" />
+
+            <!-- Aantal Aanwezige Deelnemers -->
+            <Label x:Name="attendedCountLabel" FontSize="16" />
+
+            <!-- Deelnemers Namen -->
+            <Label x:Name="registeredNamesLabel" FontSize="16" />
+
             <Button x:Name="editEventButton" Text="Bewerk Evenement" Clicked="OnEditEventClicked" IsVisible="True" />
 
             <!-- Opslaan Knop (zichtbaar maken als de gebruiker in de bewerkmodus is) -->

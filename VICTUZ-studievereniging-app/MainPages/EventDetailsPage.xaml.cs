@@ -31,6 +31,16 @@ namespace VICTUZ_studievereniging_app.MainPages
                 // Hosts weergeven
                 var hostNames = string.Join(", ", currentEvent.Hosts?.Select(h => $"{h.Firstname} {h.Lastname}") ?? Enumerable.Empty<string>());
                 eventHostsLabel.Text = $"Hosts: {hostNames}";
+
+                // Aantal geregistreerde deelnemers weergeven
+                registeredCountLabel.Text = $"Aantal Geregistreerde Deelnemers: {currentEvent.Registered?.Count ?? 0}";
+
+                // Aantal aanwezige deelnemers weergeven
+                attendedCountLabel.Text = $"Aantal Aanwezige Deelnemers: {currentEvent.Attended?.Count ?? 0}";
+
+                // Namen van de geregistreerde deelnemers weergeven
+                var registeredNames = string.Join(", ", currentEvent.Registered?.Select(r => $"{r.Firstname} {r.Lastname}") ?? Enumerable.Empty<string>());
+                registeredNamesLabel.Text = $"Geregistreerde Deelnemers: {registeredNames}";
             }
         }
 
