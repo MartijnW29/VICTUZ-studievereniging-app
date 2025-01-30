@@ -23,64 +23,62 @@ namespace VICTUZ_studievereniging_app
             bool isEmailEmpty = string.IsNullOrEmpty(EmailEntry.Text);
             bool isPasswordEmpty = string.IsNullOrEmpty(PasswordEntry.Text);
 
-            // Controleer of de invoervelden leeg zijn
             if (isEmailEmpty)
             {
                 EmailEntry.Placeholder = "U bent dit invulveld vergeten!\nVul je email in!";
             }
-            
             else if (isPasswordEmpty)
             {
                 PasswordEntry.Placeholder = "U bent dit invulveld vergeten!\nVul je wachtwoord in!";
             }
             else
             {
-                // Verkrijg email, gebruikersnaam en wachtwoord uit de invoervelden
                 string email = EmailEntry.Text;
                 string password = PasswordEntry.Text;
 
-                // Controleer of de gebruiker bestaat
                 var userId = await _firebaseHelper.CheckUserExistence(email, password);
 
                 if (userId != null)
                 {
-                    var LoggedInUser = new Classes.LoggedInUser
-                    {
-                        Id = userId,
-                        Email = email,
-                        Password = password
-                    };
-
-                    localdatabase.SaveUserAsync(LoggedInUser);
-
                     var user = await _firebaseHelper.GetUserById(userId);
 
                     if (user != null)
                     {
                         // Sla de ingelogde gebruiker op in de applicatie
                         App.CurrentUser = user;
+
+                        // Vul de velden in op de UI
+                        FirstnameEntry.Text = user.Firstname;
+                        LastnameEntry.Text = user.Lastname;
                     }
 
-                    // Gebruiker gevonden, log in en navigeer naar het hoofdscherm
-
-                    //await DisplayAlert("Inloggen", "Inloggen is gelukt!", "OK");
-                    Application.Current.MainPage = new MainBar(); // Navigeer naar het hoofdscherm
+                    Application.Current.MainPage = new MainBar();
                 }
                 else
                 {
-                        // Gebruiker niet gevonden, toon een foutmelding
-                        await DisplayAlert("Fout", "Ongeldige e-mail of wachtwoord.", "OK");
+                    await DisplayAlert("Fout", "Ongeldige e-mail of wachtwoord.", "OK");
                 }
             }
         }
 
+
         private async void OnCreateAccountButtonClicked(object sender, EventArgs e)
         {
+            bool isFirstnameEmpty = string.IsNullOrEmpty(FirstnameEntry.Text);
+            bool isLastnameEmpty = string.IsNullOrEmpty(LastnameEntry.Text);
             bool isEmailEmpty = string.IsNullOrEmpty(EmailEntry.Text);
             bool isPasswordEmpty = string.IsNullOrEmpty(PasswordEntry.Text);
 
             // Controleer of de invoervelden leeg zijn
-            if (isEmailEmpty)
+            if (isFirstnameEmpty)
+            {
+                FirstnameEntry.Placeholder = "U bent dit invulveld vergeten!";
+            }
+            else if (isLastnameEmpty)
+            {
+                LastnameEntry.Placeholder = "U bent dit invulveld vergeten!";
+            }
+            else if (isEmailEmpty)
             {
                 EmailEntry.Placeholder = "U bent dit invulveld vergeten!";
             }
@@ -90,13 +88,17 @@ namespace VICTUZ_studievereniging_app
             }
             else
             {
-                // Verkrijg email, gebruikersnaam en wachtwoord uit de invoervelden
+                // Verkrijg gegevens uit invoervelden
+                string firstname = FirstnameEntry.Text;
+                string lastname = LastnameEntry.Text;
                 string email = EmailEntry.Text;
                 string password = PasswordEntry.Text;
 
-                // Maak een nieuw User-object zonder ID
+                // Maak een nieuw User-object
                 var newUser = new Classes.User
                 {
+                    Firstname = firstname,
+                    Lastname = lastname,
                     Email = email,
                     Password = password
                 };
@@ -104,13 +106,12 @@ namespace VICTUZ_studievereniging_app
                 // Voeg de nieuwe gebruiker toe aan de database
                 await _firebaseHelper.MakeAccount(newUser);
 
-                // Bevestiging geven en terug navigeren naar de inlogpagina
+                // Bevestiging geven en terug naar de loginpagina
                 await DisplayAlert("Account aangemaakt", "Je account is succesvol aangemaakt!", "OK");
-
-                // Optioneel: Navigeer terug naar de loginpagina of naar het hoofdscherm
                 Application.Current.MainPage = new LoginPage();
             }
         }
+
 
     }
 }

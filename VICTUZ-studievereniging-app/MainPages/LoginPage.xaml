@@ -12,52 +12,32 @@
         CornerRadius="20">
 
             <Label
-            Text="SnapTime"
+            Text="VICTUZ"
             TextColor="DarkBlue"
             FontSize="36"
                 FontAttributes="Italic"
             HorizontalOptions="Center"/>
         </Frame>
 
-        <StackLayout
-        Spacing="25"
-        Padding="30"
-        VerticalOptions="CenterAndExpand"
-        HorizontalOptions="Center">
+        <StackLayout Spacing="25" Padding="30" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
 
-            <Label
-            x:Name="EmailLabel"
-            Text="Emailadres"/>
+            <Label x:Name="FirstnameLabel" Text="Voornaam"/>
+            <Entry x:Name="FirstnameEntry" Placeholder="Voer hier je voornaam in!"/>
 
-            <Entry
-            x:Name="EmailEntry"
-            Placeholder="Voer hier je Email in!"/>
+            <Label x:Name="LastnameLabel" Text="Achternaam"/>
+            <Entry x:Name="LastnameEntry" Placeholder="Voer hier je achternaam in!"/>
 
-            <Label
-            x:Name="PasswordLabel"
-            Text="Wachtwoord"/>
+            <Label x:Name="EmailLabel" Text="Emailadres"/>
+            <Entry x:Name="EmailEntry" Placeholder="Voer hier je email in!"/>
 
-            <Entry
-            x:Name="PasswordEntry"
-            Placeholder="Voer hier je wachtwoord in!"
-            IsPassword="True"/>
+            <Label x:Name="PasswordLabel" Text="Wachtwoord"/>
+            <Entry x:Name="PasswordEntry" Placeholder="Voer hier je wachtwoord in!" IsPassword="True"/>
 
-            <Button
-            x:Name="LogInButton"
-            Text="Inloggen"
-            BackgroundColor="Aquamarine"
-            TextColor="DarkBlue"
-                FontAttributes="Bold"
-            Clicked="OnLoginButtonClicked"/>
+            <Button x:Name="LogInButton" Text="Inloggen" BackgroundColor="Aquamarine" TextColor="DarkBlue"
+            FontAttributes="Bold" Clicked="OnLoginButtonClicked"/>
 
-            <!-- Account aanmaken knop -->
-            <Button
-            x:Name="CreateAccountButton"
-            Text="Account aanmaken"
-            BackgroundColor="Aquamarine"
-            TextColor="DarkBlue"
-                FontAttributes="Bold"
-            Clicked="OnCreateAccountButtonClicked"/>
+            <Button x:Name="CreateAccountButton" Text="Account aanmaken" BackgroundColor="Aquamarine" 
+            TextColor="DarkBlue" FontAttributes="Bold" Clicked="OnCreateAccountButtonClicked"/>
 
         </StackLayout>
     </StackLayout>

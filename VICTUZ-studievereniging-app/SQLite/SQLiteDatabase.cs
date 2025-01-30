@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace VICTUZ_studievereniging_app.SQLite
 {
@@ -38,12 +39,19 @@ namespace VICTUZ_studievereniging_app.SQLite
             return await Database.InsertAsync(user);
         }
 
-        public async Task<int> DeleteUserAsync(string id)
+        public async Task DeleteUserAsync(User user)
         {
-            await Init(); 
-            return await Database.Table<LoggedInUser>()
-                .Where(user => user.Id == id)
-                .DeleteAsync();
+            if (user == null) return;
+
+            try
+            {
+               
+                await Database.DeleteAsync(user);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Fout bij verwijderen gebruiker: {ex.Message}");
+            }
         }
 
         internal void DeleteUserAsync(object id)
