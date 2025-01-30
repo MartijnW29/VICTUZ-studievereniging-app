@@ -1,20 +1,50 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
              x:Class="VICTUZ_studievereniging_app.MainPages.ProfilePage"
              Title="Profiel">
 
-    <StackLayout Padding="20" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
 
-        <Label Text="Profielpagina" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
 
-        <Button Text="Uitloggen"
-                BackgroundColor="Red"
-                TextColor="White"
-                FontAttributes="Bold"
-                Clicked="OnLogoutButtonClicked"
-                Margin="10"/>
+    <VerticalStackLayout
+        Spacing="25"
+        Padding="30,0"
+        VerticalOptions="Center">
 
-    </StackLayout>
+        <StackLayout Padding="20" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
+
+            <Label Text="Profielpagina" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+
+            <Button Text="Uitloggen"
+            BackgroundColor="Red"
+            TextColor="White"
+            FontAttributes="Bold"
+            Clicked="OnLogoutButtonClicked"
+            Margin="10"/>
+
+        </StackLayout>
+
+        <Frame BorderColor="Black" 
+       Padding="10" 
+       CornerRadius="10" 
+       HasShadow="True"
+       HorizontalOptions="Center"
+       VerticalOptions="Center">
+
+
+            <cv:BarcodeImage Barcode="{Binding Id}"
+                     BarcodeFormat="QR_CODE" 
+                     HeightRequest="250" 
+                     WidthRequest="250" 
+                     BarcodeMargin="5"
+                     BarcodeHeight="200" 
+                     BarcodeWidth="200"
+                     Visual="Default"
+                     BarcodeBackground="White" 
+                     BarcodeForeground="Black"/>
+        </Frame>
+
+    </VerticalStackLayout>
 
 </ContentPage>

@@ -10,6 +10,7 @@ namespace VICTUZ_studievereniging_app.MainPages
         public ProfilePage()
         {
             InitializeComponent();
+            BindingContext = App.CurrentUser;
             localdatabase = new SQLiteDatabase();
         }
 
