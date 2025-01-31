@@ -40,9 +40,9 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-
+		<MauiIcon Include="Resources\AppIcon\*" />
 		<!-- Splash Screen -->
-
+		
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
@@ -55,22 +55,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\AppIcon\appicon.svg" />
+	  
 	  <None Remove="Resources\Images\Icons\bookmark.png" />
 	  <None Remove="Resources\Images\Icons\calendar.png" />
 	  <None Remove="Resources\Images\Icons\home.png" />
 	  <None Remove="Resources\Images\Icons\person.png" />
 	  <None Remove="Resources\Images\Icons\settings.png" />
 	  <None Remove="Resources\Images\Icons\suggestions.png" />
-	  <None Remove="Resources\Splash\splash.svg" />
-	  <None Remove="Resources\Splash\victuz.png" />
+	  <None Remove="Resources\Splash\victuzsplash.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-	</ItemGroup>
-
-	<ItemGroup>
+	  
 	  <MauiImage Include="Resources\Images\Icons\bookmark.png" />
 	  <MauiImage Include="Resources\Images\Icons\calendar.png" />
 	  <MauiImage Include="Resources\Images\Icons\home.png" />
@@ -80,7 +76,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+	  <MauiSplashScreen Include="Resources\Splash\victuzspl.svg" />
+	  <MauiSplashScreen Include="Resources\Splash\victuzsplash.png" />
 	</ItemGroup>
 
 	<ItemGroup>
