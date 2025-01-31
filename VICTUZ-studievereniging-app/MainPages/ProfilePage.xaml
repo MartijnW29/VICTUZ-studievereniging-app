@@ -5,45 +5,55 @@
              x:Class="VICTUZ_studievereniging_app.MainPages.ProfilePage"
              Title="Profiel">
 
-
-
     <VerticalStackLayout
         Spacing="25"
         Padding="30,0"
         VerticalOptions="Center">
 
         <StackLayout Padding="20" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
-
             <Label Text="Profielpagina" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+        </StackLayout>
 
-            <Button Text="Uitloggen"
-            BackgroundColor="Red"
-            TextColor="White"
-            FontAttributes="Bold"
-            Clicked="OnLogoutButtonClicked"
-            Margin="10"/>
+        <!-- Gebruikersnaam weergeven -->
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="Hallo" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
 
+            <Label FontSize="22" FontAttributes="Bold" HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding Firstname}" />
+                        <Span Text=" " />
+                        <Span Text="{Binding Lastname}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
         </StackLayout>
 
         <Frame BorderColor="Black" 
-       Padding="10" 
-       CornerRadius="10" 
-       HasShadow="True"
-       HorizontalOptions="Center"
-       VerticalOptions="Center">
-
+               Padding="10" 
+               CornerRadius="10" 
+               HasShadow="True"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
 
             <cv:BarcodeImage Barcode="{Binding Id}"
-                     BarcodeFormat="QR_CODE" 
-                     HeightRequest="250" 
-                     WidthRequest="250" 
-                     BarcodeMargin="5"
-                     BarcodeHeight="200" 
-                     BarcodeWidth="200"
-                     Visual="Default"
-                     BarcodeBackground="White" 
-                     BarcodeForeground="Black"/>
+                             BarcodeFormat="QR_CODE" 
+                             HeightRequest="250" 
+                             WidthRequest="250" 
+                             BarcodeMargin="5"
+                             BarcodeHeight="200" 
+                             BarcodeWidth="200"
+                             Visual="Default"
+                             BarcodeBackground="White" 
+                             BarcodeForeground="Black"/>
         </Frame>
+
+        <Button Text="Uitloggen"
+                BackgroundColor="Red"
+                TextColor="White"
+                FontAttributes="Bold"
+                Clicked="OnLogoutButtonClicked"
+                Margin="10"/>
 
     </VerticalStackLayout>
 
