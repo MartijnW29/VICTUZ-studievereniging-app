@@ -1,6 +1,7 @@
 using VICTUZ_studievereniging_app.Services;
 using VICTUZ_studievereniging_app.Classes;
 using System.Linq;
+using Camera.MAUI;
 
 namespace VICTUZ_studievereniging_app.MainPages
 {

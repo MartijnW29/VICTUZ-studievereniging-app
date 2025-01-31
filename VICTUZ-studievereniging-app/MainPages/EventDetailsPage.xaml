@@ -1,5 +1,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
              x:Class="VICTUZ_studievereniging_app.MainPages.EventDetailsPage"
              Title="Evenement Details">
     <ScrollView>
@@ -38,6 +39,25 @@
 
             <!-- Opslaan Knop (zichtbaar maken als de gebruiker in de bewerkmodus is) -->
             <Button x:Name="saveEventButton" Text="Opslaan" Clicked="OnSaveEventClicked" IsVisible="False" />
+
+
+
+            <Label x:Name="barcodeResult" FontSize="20"/>
+
+            <Label x:Name="registrationStatus"
+               Text=""
+               FontSize="18"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="Black"/>
+
+
+            <cv:CameraView x:Name="cameraView" WidthRequest="300" HeightRequest="200" CamerasLoaded="cameraView_CamerasLoaded" BarCodeDetectionEnabled="True"
+                           BarcodeDetected="cameraView_BarcodeDetected"/>
+
+
+
+
         </StackLayout>
     </ScrollView>
 </ContentPage>

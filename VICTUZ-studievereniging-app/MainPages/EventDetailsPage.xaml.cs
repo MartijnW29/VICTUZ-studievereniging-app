@@ -1,6 +1,7 @@
-using VICTUZ_studievereniging_app.Services;
+﻿using VICTUZ_studievereniging_app.Services;
 using VICTUZ_studievereniging_app.Classes;
 using System;
+
 
 
 namespace VICTUZ_studievereniging_app.MainPages
@@ -82,5 +83,68 @@ namespace VICTUZ_studievereniging_app.MainPages
             saveEventButton.IsVisible = false;
             editEventButton.IsVisible = true;
         }
+
+
+
+        private void cameraView_CamerasLoaded(object sender, EventArgs e)
+        {
+            if (cameraView.Cameras.Count > 0)
+            {
+                cameraView.Camera = cameraView.Cameras.First();
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await cameraView.StopCameraAsync();
+                    await cameraView.StartCameraAsync();
+                });
+            }
+        }
+
+
+
+        private void cameraView_BarcodeDetected(object sender, Camera.MAUI.ZXingHelper.BarcodeEventArgs args)
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                if (args.Result != null)
+                {
+                    string scannedUserId = args.Result[0].Text; // QR-code ID ophalen
+
+                    // Zoek de gebruiker in de database
+                    var user = await firebaseHelper.GetUserById(scannedUserId);
+
+                    if (user != null)
+                    {
+                        barcodeResult.Text = $"Gebruiker: {user.Firstname} {user.Lastname}";
+
+                        // Controleren of gebruiker zich heeft geregistreerd voor het evenement
+                        bool isRegistered = currentEvent.Registered?.Any(r => r.Id == scannedUserId) ?? false;
+
+                        if (isRegistered)
+                        {
+                            registrationStatus.Text = "✅ Gebruiker is aangemeld voor dit evenement!";
+                            registrationStatus.TextColor = Colors.Green;
+                        }
+                        else
+                        {
+                            registrationStatus.Text = "❌ Gebruiker is niet aangemeld voor dit evenement.";
+                            registrationStatus.TextColor = Colors.Red;
+                        }
+                    }
+                    else
+                    {
+                        barcodeResult.Text = "Gebruiker niet gevonden!";
+                        registrationStatus.Text = string.Empty;
+                    }
+                }
+            });
+        }
+
+
+
+
+
+
+
+
     }
 }
