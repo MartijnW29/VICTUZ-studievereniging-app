@@ -26,7 +26,7 @@ namespace VICTUZ_studievereniging_app.MainPages
                 // Laat alleen toekomstige evenementen zien
                 var hostedEvents = allEvents
                     .Where(e => e.Hosts != null && e.Hosts.Any(h => h.Id == App.CurrentUser?.Id)
-                                && e.StartDateTime > DateTime.Now) // comment deze om oude events te zien
+                                && e.EndDateTime.AddDays(1) > DateTime.Now) // laat evenenmenten zien die maximaal 1 dag geleden geweesd zijn // comment deze regel om oude events te zien
                                 
                     .ToList();
 
